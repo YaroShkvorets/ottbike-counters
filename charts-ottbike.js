@@ -646,7 +646,7 @@ $(document).ready(function()
 {
 		 
 	
-	$.get('http://gofreefly.ca/ottbike/laurier.csv', function(data) {
+	$.get('laurier.csv', function(data) {
 				
 		var DaysSeries = {
 					name: 'Day total',
@@ -707,7 +707,7 @@ $(document).ready(function()
 		
 	});	//end get csv
 
-	$.get('http://gofreefly.ca/ottbike/portage.csv', function(data) {
+	$.get('portage.csv', function(data) {
 		var lines = data.split('\n');
 		
 		
