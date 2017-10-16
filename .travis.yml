@@ -1,7 +1,5 @@
 language: php
-
 script: php ./parse-counters.php
-
 after_success:
 - git config --global user.email "travis@travis-ci.org"
 - git config --global user.name "Travis CI"
@@ -10,5 +8,8 @@ after_success:
 - git checkout master
 - git add *.csv
 - git status
-- 'git commit --message "Updated data files"'
+- git commit --message "Updated data files"
 - git push
+env:
+  global:
+    secure: ntgKihe9Psfe9rzO1Ol6sRB1uaVdxSMIq5bNwq7piLaNlnN1LgyUu02O135Gq9dKnduiGsWCy1bs/VvYtkDALjYWAmMlwNK5gjUwQ0b+qolR2FBazbG53iVUoE8Js2OTjmNtkrXdl0wSXRDmhJOLdoo/OaQ+YJtB0mfCDz16gi3V65Pz52PCZ/JDJlYwkRCdNre5XcNiblFdKGfaiThyVGb7DxAAnIpL7yPNd4fy3gtzo/ybBcg3vuTz93rIqjDtfe9FuJkv+9U7Y3OjQJTlD1XODSKEfxPvwYqBSBYly2CNWSggInJqZniaHYib6LGLsyiOZmUpGU11wCnwd5IaaUkSOVE5cIWHZShAV7L2U3qLeMPWhVwiV5jJzR17thvPJDBlqOg6cuf7cm246JumBGHFSOcZdTOCefoMAmCosYi8gd1IfvhYfehDYSCeLOOzrxJk8KKzOXAXuU5CF+dFI0Bs9Gth/DSwgyuaIO3eS2wPTMsxp8lms9YlugZ5cB7N1+/RPmfWMQo+9MAB+CsoKm519wuRvYBQm7ffA0+HriwC8kWxfNwElCN24RRD04oUk9BfmVmTUtrrPyW+ckh/rsrpFCopn0zXj0b0vV3pTvBCyFOdRd1wRqBpI+ShZ8cGuFvuq3ShhPqM0z4CRFUnNiYx8aDGa0+EHVNn6CK5x+Q=
