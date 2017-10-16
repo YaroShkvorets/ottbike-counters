@@ -1,7 +1,6 @@
 language: php
 
-script:
-- parse-counters.php
+script: php ./parse-counters.php
 
 after_success:
 - git config --global user.email "travis@travis-ci.org"
