@@ -51,4 +51,7 @@ $datestamp = date("Ymd", mktime(0, 0, 0, date("m")  , date("d")-1, date("Y")));
 ParseCounter($urlLaurier.$datestamp, "laurier.csv");
 ParseCounter($urlPortage.$datestamp, "portage.csv");
 echo "Parsed counters successfully until ".$datestamp;
+
+return 0;
+
 ?>
