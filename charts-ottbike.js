@@ -3,14 +3,14 @@
 var chartYears, chartMonths, chartDays, chartWeeks;
 var todayLaurierTotals = [];
 var todayPortageTotals = [];
-				
+
 var now = new Date();
-		
+
 var optionsLaurierYears = {
 		chart: {
 					renderTo: 'container_years',
 					type: 'line',
-					zoomType: 'xy'                
+					zoomType: 'xy'
 				},
 		title: {
 			text: 'Laurier Bike Lane'
@@ -28,7 +28,7 @@ var optionsLaurierYears = {
 				},
 			},
 			crosshair: true
-		   
+
 		},
 		yAxis: {
             title: {
@@ -41,7 +41,7 @@ var optionsLaurierYears = {
                 }
             },
 			max:500000,
-			
+
 		},
 		tooltip: {
             //crosshairs: true,
@@ -51,18 +51,18 @@ var optionsLaurierYears = {
 			formatter: function () {
                 return TooltipFormatter(this, false);
             }
-		
+
         },
-		
+
 		series: []
 	};	//end var options
 	var optionsLaurierMonths = {
-	
+
 		chart: {
 			type: 'column',
 			renderTo: 'container_months',
-			zoomType: 'xy' 
-					
+			zoomType: 'xy'
+
 		},
 		title: {
 			text: null
@@ -108,15 +108,15 @@ var optionsLaurierYears = {
 		},
 		series: []
 	};
-		
-	
+
+
 	var optionsLaurierDays = {
-	
+
 		chart: {
 			type: 'column',
 			renderTo: 'container_days',
-			zoomType: 'xy' 
-					
+			zoomType: 'xy'
+
 		},
 		legend: {
             enabled: false
@@ -129,9 +129,9 @@ var optionsLaurierYears = {
 		},
 		xAxis: {
 			type: 'datetime',
-			//tickInterval: 7 * 24 * 3600 * 1000, 
+			//tickInterval: 7 * 24 * 3600 * 1000,
 			plotBands: []
-			
+
 		},
 		yAxis: {
 			min: 0,
@@ -154,14 +154,14 @@ var optionsLaurierYears = {
 		},
 		series: []
 	};
-	
+
 	var optionsLaurierWeeks = {
-	
+
 		chart: {
 			type: 'column',
 			renderTo: 'container_weeks',
-			zoomType: 'xy' 
-					
+			zoomType: 'xy'
+
 		},
 		legend: {
             enabled: false
@@ -175,7 +175,7 @@ var optionsLaurierYears = {
 		xAxis: {
 			type: 'datetime',
 			plotBands: []
-			
+
 		},
 		yAxis: {
 			title: {
@@ -198,16 +198,16 @@ var optionsLaurierYears = {
 		},
 		series: []
 	};
-	
+
 	var optionsPortageYears = {
 		chart: {
 					renderTo: 'container_years',
-					zoomType: 'xy' 
-				
+					zoomType: 'xy'
+
 				},
 		title: {
 			text: 'Portage Bike Lane'
-			
+
 		},
 		legend: {
             enabled: false
@@ -222,7 +222,7 @@ var optionsLaurierYears = {
 				},
 			},
 			crosshair: true
-		   
+
 		},
 		yAxis: {
             title: {
@@ -235,7 +235,7 @@ var optionsLaurierYears = {
             },
 			max:400000,
 		},
-		
+
 		tooltip: {
             //crosshairs: true,
             shared: true,
@@ -244,19 +244,19 @@ var optionsLaurierYears = {
 			formatter: function () {
 					return TooltipFormatter(this, false);
 				}
-			
+
         },
-		
+
 		series: []
 	};	//end var options
-	 
+
 	var optionsPortageMonths = {
-	
+
 		chart: {
 			type: 'column',
 			renderTo: 'container_months',
-			zoomType: 'xy' 
-					
+			zoomType: 'xy'
+
 		},
 		title: {
 			text: null
@@ -302,15 +302,15 @@ var optionsLaurierYears = {
 		},
 		series: []
 	};
-		
-	
+
+
 	var optionsPortageDays = {
-	
+
 		chart: {
 			type: 'column',
 			renderTo: 'container_days',
-			zoomType: 'xy' 
-					
+			zoomType: 'xy'
+
 		},
 		legend: {
             enabled: false
@@ -323,16 +323,16 @@ var optionsLaurierYears = {
 		},
 		xAxis: {
 			type: 'datetime',
-			//tickInterval: 7 * 24 * 3600 * 1000, 
+			//tickInterval: 7 * 24 * 3600 * 1000,
 			plotBands: []
-			
+
 		},
 		yAxis: {
 			min: 0,
 			title: {
 				text: null
 			},
-			crosshair: true,			
+			crosshair: true,
 			gridLineWidth: 0,
 			plotLines: []
 		},
@@ -348,14 +348,14 @@ var optionsLaurierYears = {
 		},
 		series: []
 	};
-	
+
 	var optionsPortageWeeks = {
-	
+
 		chart: {
 			type: 'column',
 			renderTo: 'container_weeks',
-			zoomType: 'xy' 
-					
+			zoomType: 'xy'
+
 		},
 		legend: {
             enabled: false
@@ -369,7 +369,7 @@ var optionsLaurierYears = {
 		xAxis: {
 			type: 'datetime',
 			plotBands: []
-			
+
 		},
 		yAxis: {
 			min: 0,
@@ -391,14 +391,14 @@ var optionsLaurierYears = {
 		},
 		series: []
 	};
-	
-GetDayMonthFromDayNum = function (daynum) 
+
+GetDayMonthFromDayNum = function (daynum)
 {
 	var date = new Date(2017, 0); // initialize a date in `year-01-01`
 	var date1 = new Date(date.setDate(daynum+1)); // add the number of days
-    
+
 	return Highcharts.dateFormat('%b %e', date1.getTime())
-	
+
 	/*return date1.toLocaleDateString('en-GB', {
 		day : 'numeric',
 		month : 'short',
@@ -406,13 +406,13 @@ GetDayMonthFromDayNum = function (daynum)
 	}).split(' ');*/
 };
 
-GetMonthFromDayNum = function (daynum) 
+GetMonthFromDayNum = function (daynum)
 {
 	var date = new Date(2017, 0); // initialize a date in `year-01-01`
 	var date1 = new Date(date.setDate(daynum+1)); // add the number of days
-    
+
 	return Highcharts.dateFormat('%b', date1.getTime())
-	
+
 	/*return date1.toLocaleDateString('en-GB', {
 		day : 'numeric',
 		month : 'short',
@@ -435,21 +435,21 @@ renderYearsTextBox = function (todayTotals)
 	var sortedYears = getSortedKeys(todayTotals);
 
 	var labelText = 'To this day:<br>';
-		
-	for(var key in sortedYears) 
+
+	for(var key in sortedYears)
 	{
 		var year = sortedYears[key];
 		var series = chartYears.get(parseInt(year));//YearsSeries[sortedYears[key]];
 		var diff = '<span style="font-size: 75%;">' + (todayTotals[curYear]>todayTotals[sortedYears[key]]?' (':' (+');
 		diff+=Highcharts.numberFormat(todayTotals[sortedYears[key]]-todayTotals[curYear],0)+') </span>';
 		if(curYear==sortedYears[key]) diff='';
-		
+
 		labelText+= '<span style="color:' + series.color + ';">\u25CF</span> ' + sortedYears[key] +
 			': <span style="display: inline-block;width: 240px;"><b>' + Highcharts.numberFormat(todayTotals[sortedYears[key]],0)+' </b></span>'+diff+'<br>';
-			
-	}	
-	
-	
+
+	}
+
+
 
 	chartYears.renderer.text(labelText, 80, 80)
 		.attr({
@@ -470,9 +470,9 @@ AddRecordsLines = function (optionsDaysChart, lastDayTime, MonthRecords, DayReco
 	var dayRecordValue = DayRecords[dayOfWeek][0];
 
 	//this month record line
-	optionsDaysChart.yAxis.plotLines.push(	
+	optionsDaysChart.yAxis.plotLines.push(
 											{
-												value: monthRecordValue, 
+												value: monthRecordValue,
 												color: 'grey',
 												width: 1,
 												dashStyle: 'Dot',
@@ -481,16 +481,16 @@ AddRecordsLines = function (optionsDaysChart, lastDayTime, MonthRecords, DayReco
 													text: Highcharts.dateFormat("%B",lastDayTime)+' all-time high: <b>'+ monthRecordValue + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",MonthRecords[monthOfYear][1]),
 													style: {
 														color: 'grey',
-														fontSize: '11px'														
+														fontSize: '11px'
 													},
 													x:0,
 													y: monthRecordValue>dayRecordValue?-5:12
 												}
 											});
-	//this day of week record line										
+	//this day of week record line
 	optionsDaysChart.yAxis.plotLines.push(
 											{
-												value: dayRecordValue, 
+												value: dayRecordValue,
 												color: 'grey',
 												width: 1,
 												dashStyle: 'Dot',
@@ -503,10 +503,10 @@ AddRecordsLines = function (optionsDaysChart, lastDayTime, MonthRecords, DayReco
 													},
 													x:0,
 													y: (monthRecordValue>dayRecordValue && monthRecordValue-dayRecordValue<500)?12:-5
-												}													
+												}
 											});
-	
-	
+
+
 };
 
 TooltipFormatter = function (tooltip) {
@@ -517,10 +517,10 @@ TooltipFormatter = function (tooltip) {
     var index = tooltip.points[0].point.index,
         ret = '<small>' + GetDayMonthFromDayNum(tooltip.x) + '</small><br>';
 
-    
+
     ret += '<table>';
 
-	for(var key in sortedPoints) 
+	for(var key in sortedPoints)
 	{
         var series = tooltip.points[sortedPoints[key]].series;
 		var yearShow = tooltip.points[sortedPoints[key]].y;		//whichever year we are showing
@@ -528,11 +528,11 @@ TooltipFormatter = function (tooltip) {
 		var diff = '<span style="font-size: 75%;">' + (yearCur>yearShow?' (':' (+');
 		diff+=Highcharts.numberFormat(yearShow-yearCur,0)+') </span>';
 		if(yearShow==yearCur) diff='';
-		
+
 		ret += '<tr><td><span style="color:' + series.color + ';">\u25CF</span> ' + series.name +
 			': </td><td style="margin:0;white-space:nowrap"><b>' + Highcharts.numberFormat(yearShow,0) +
 			'</b></td><td>'+ diff +'</td></tr>';
-		
+
     }
 
     // Close
@@ -548,71 +548,22 @@ parseBikeData = function(lines, RidesInYear, YearsSeries, MonthsSeries, DaysSeri
 	var curMonth = -1;
 		curYear = -1;
 		curMonthRides = 0;
-		curWeekRides = 0;	
-			
+		curWeekRides = 0;
+
 		var weekStart = 0;
-			
+
 		$.each(lines, function(lineNo, line) {
-			var items = line.split(',');	
-					
+			var items = line.split(',');
+
 			if(line !="")
 			{
 				var date = items[0];
 				var array = date.split('-'),
 					year = parseInt(array[0]), month = parseInt(array[1]), day = parseInt(array[2]);
-				
+
 				if(curYear==-1)	curYear = year;
 				if(curMonth==-1) curMonth = month;
-				
-				var rides = parseFloat(items[1]);
-				
-				var time = Date.parse(date);	
-				var nowtime = now.getTime(); 
-				var dayOfWeek = new Date(time).getDay();
-				
-				if(DayRecords[dayOfWeek][0]<rides)
-				{
-					DayRecords[dayOfWeek][0] = rides;
-					DayRecords[dayOfWeek][1] = time;
-				}
-				
-				if(MonthRecords[curMonth][0]<rides)
-				{
-					MonthRecords[curMonth][0] = rides;
-					MonthRecords[curMonth][1] = time;
-				}
-				
-				if(dayOfWeek == 0)	//Monday..Sunday = week
-				{
-					if(weekStart==0) 
-						weekStart = time;
-					else
-						WeeksSeries.data.push([weekStart,curWeekRides])
-						
-					curWeekRides=0;
-					weekStart=time;
-				}
-				curWeekRides+=rides;
-				
-				if(time > nowtime - 90*24*60*60*1000)	//last 90 days
-				{
-					var d = new Date(time);
-					DaysSeries.data.push([time,rides]);
-					if(d.getDay()==4)
-					{ 
-						optionsLaurierDays.xAxis.plotBands.push({color: '#FCFFC5', from: time+12*60*60*1000, to: time+2.5*24*60*60*1000});
-						optionsPortageDays.xAxis.plotBands.push({color: '#FCFFC5', from: time+12*60*60*1000, to: time+2.5*24*60*60*1000});
-					}
-				}
-				
-				if(month==2 && day==29)
-					return true;		//continue
-				
-				RidesInYear[year]+=rides;
-				
-				if(YearsSeries[year].data.length<365) 				//sometimes we have double-days that skew axis
-					YearsSeries[year].data.push(RidesInYear[year]);
-				
+
 				if(curMonth!=month)
 				{
 					MonthsSeries[curYear].data.push(curMonthRides);
@@ -626,141 +577,188 @@ parseBikeData = function(lines, RidesInYear, YearsSeries, MonthsSeries, DaysSeri
 					YearsSeries[curYear].id = curYear;
 					curYear=year;
 				}
-				
+
+				var rides = parseFloat(items[1]);
+
+				var time = Date.parse(date);
+				var nowtime = now.getTime();
+				var dayOfWeek = new Date(time).getDay();
+
+				if(DayRecords[dayOfWeek][0]<rides)
+				{
+					DayRecords[dayOfWeek][0] = rides;
+					DayRecords[dayOfWeek][1] = time;
+				}
+
+				if(MonthRecords[curMonth][0]<rides)
+				{
+					MonthRecords[curMonth][0] = rides;
+					MonthRecords[curMonth][1] = time;
+				}
+
+				if(dayOfWeek == 0)	//Monday..Sunday = week
+				{
+					if(weekStart==0)
+						weekStart = time;
+					else
+						WeeksSeries.data.push([weekStart,curWeekRides])
+
+					curWeekRides=0;
+					weekStart=time;
+				}
+				curWeekRides+=rides;
+
+				if(time > nowtime - 90*24*60*60*1000)	//last 90 days
+				{
+					var d = new Date(time);
+					DaysSeries.data.push([time,rides]);
+					if(d.getDay()==4)
+					{
+						optionsLaurierDays.xAxis.plotBands.push({color: '#FCFFC5', from: time+12*60*60*1000, to: time+2.5*24*60*60*1000});
+						optionsPortageDays.xAxis.plotBands.push({color: '#FCFFC5', from: time+12*60*60*1000, to: time+2.5*24*60*60*1000});
+					}
+				}
+
+				if(month==2 && day==29)
+					return true;		//continue
+
+				RidesInYear[year]+=rides;
+
+				if(YearsSeries[year].data.length<365) 				//sometimes we have double-days that skew axis
+					YearsSeries[year].data.push(RidesInYear[year]);
+
+
+
 				curMonthRides+=rides;
 			}
 		});	//end each(lines
- 		
+
 		if(curWeekRides != 0)	WeeksSeries.data.push([weekStart,curWeekRides])
-		
+
 		MonthsSeries[curYear].name = curYear;
 		YearsSeries[curYear].name = curYear;
 		YearsSeries[curYear].id = curYear;
-		
+
 		MonthsSeries[curYear].data.push(curMonthRides);		//push last month
-				
-	
+
+
 }
 
-$(document).ready(function()  
+$(document).ready(function()
 {
-		 
-	
-	$.get('laurier.csv', function(data) {
-				
-		var DaysSeries = {
-					name: 'Day total',
-					data: []
-				};					
-		
-		var WeeksSeries = {
-					name: 'Week total',
-					data: []
-				};	
-		var thisWeeksSeries = {
-					name: 'This week total',
-					color: '#ffa126',
-					data: []
-				};	
-				
-		var RidesInYear = {2012:0,2013:0,2014:0,2015:0,2016:0,2017:0};
-		var YearsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
-		var MonthsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
-		var DayRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
-		var MonthRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
-		
-		 // Split the lines
-		var lines = data.split('\n');
-		
-		parseBikeData(lines, RidesInYear, YearsSeries, MonthsSeries, DaysSeries, WeeksSeries, DayRecords, MonthRecords);
-		
-		var todayPoint = YearsSeries[now.getFullYear()].data.length-1;
-			
-					
-		for (i = 2012; i<=now.getFullYear(); i++) 
-		{
-			optionsLaurierYears.series.push(YearsSeries[i]);	
-			optionsLaurierMonths.series.push(MonthsSeries[i]);		
-			todayLaurierTotals[i] = YearsSeries[i].data[todayPoint];
-		}
-		
-		thisWeeksSeries.data.push(WeeksSeries.data[WeeksSeries.data.length-1]);
-		WeeksSeries.data.length = WeeksSeries.data.length-1;
-		
-		optionsLaurierDays.series.push(DaysSeries);
-		optionsLaurierWeeks.series.push(WeeksSeries);
-		optionsLaurierWeeks.series.push(thisWeeksSeries);
-		
-		
-		var lastDayTime = DaysSeries.data[DaysSeries.data.length-1][0];
-		
-		AddRecordsLines(optionsLaurierDays, lastDayTime, MonthRecords, DayRecords);
-		
-												
-		chartYears = new Highcharts.Chart(optionsLaurierYears);
-		chartMonths = new Highcharts.Chart(optionsLaurierMonths);
-		chartDays = new Highcharts.Chart(optionsLaurierDays);
-		chartWeeks = new Highcharts.Chart(optionsLaurierWeeks);
-		
-		renderYearsTextBox(todayLaurierTotals);
-		
-		
-	});	//end get csv
 
-	$.get('portage.csv', function(data) {
-		var lines = data.split('\n');
-		
-		
-		
-		var DaysSeries = {
-					name: 'Day total',
-					data: []
-				};				
-				
-		var WeeksSeries = {
-					name: 'Week total',
-					data: []
-				};			
-		var thisWeeksSeries = {
-					name: 'This week total',
-					color: '#ffa126',
-					data: []
-				};	
-		var RidesInYear = {2014:0,2015:0,2016:0,2017:0};
-		var YearsSeries = {2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
-		var MonthsSeries = {2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
-		var DayRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
-		var MonthRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
-		
-			
-		parseBikeData(lines, RidesInYear, YearsSeries, MonthsSeries, DaysSeries, WeeksSeries, DayRecords, MonthRecords);			
-				
-		var todayPoint = YearsSeries[now.getFullYear()].data.length-1;
-		
-					
-		for (i = 2014; i<=now.getFullYear(); i++) 
-		{
-			optionsPortageYears.series.push(YearsSeries[i]);	
-			optionsPortageMonths.series.push(MonthsSeries[i]);		
-			todayPortageTotals[i] = YearsSeries[i].data[todayPoint];
-		}
-		
-		thisWeeksSeries.data.push(WeeksSeries.data[WeeksSeries.data.length-1]);
-		WeeksSeries.data.length = WeeksSeries.data.length-1;
-					
-		optionsPortageDays.series.push(DaysSeries);
-		optionsPortageWeeks.series.push(WeeksSeries);
-		optionsPortageWeeks.series.push(thisWeeksSeries);
-		
-		var lastDayTime = DaysSeries.data[DaysSeries.data.length-1][0];
-		
-		AddRecordsLines(optionsPortageDays, lastDayTime, MonthRecords, DayRecords);
-		
+	$.get( 'laurier.csv', function( data ) {
+        var DaysSeries = {
+                    name: 'Day total',
+                    data: []
+                };
+
+        var WeeksSeries = {
+                    name: 'Week total',
+                    data: []
+                };
+        var thisWeeksSeries = {
+                    name: 'This week total',
+                    color: '#ffa126',
+                    data: []
+                };
+
+        var RidesInYear = {2012:0,2013:0,2014:0,2015:0,2016:0,2017:0};
+        var YearsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
+        var MonthsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
+        var DayRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
+        var MonthRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
+
+         // Split the lines
+        var lines = data.split('\n');
+
+        parseBikeData(lines, RidesInYear, YearsSeries, MonthsSeries, DaysSeries, WeeksSeries, DayRecords, MonthRecords);
+
+        var todayPoint = YearsSeries[now.getFullYear()].data.length-1;
+
+
+        for (i = 2012; i<=now.getFullYear(); i++)
+        {
+            optionsLaurierYears.series.push(YearsSeries[i]);
+            optionsLaurierMonths.series.push(MonthsSeries[i]);
+            todayLaurierTotals[i] = YearsSeries[i].data[todayPoint];
+        }
+
+        thisWeeksSeries.data.push(WeeksSeries.data[WeeksSeries.data.length-1]);
+        WeeksSeries.data.length = WeeksSeries.data.length-1;
+
+        optionsLaurierDays.series.push(DaysSeries);
+        optionsLaurierWeeks.series.push(WeeksSeries);
+        optionsLaurierWeeks.series.push(thisWeeksSeries);
+
+
+        var lastDayTime = DaysSeries.data[DaysSeries.data.length-1][0];
+
+        AddRecordsLines(optionsLaurierDays, lastDayTime, MonthRecords, DayRecords);
+
+
+        chartYears = new Highcharts.Chart(optionsLaurierYears);
+        chartMonths = new Highcharts.Chart(optionsLaurierMonths);
+        chartDays = new Highcharts.Chart(optionsLaurierDays);
+        chartWeeks = new Highcharts.Chart(optionsLaurierWeeks);
+
+        renderYearsTextBox(todayLaurierTotals);
+      });
+
+
+	$.get( 'portage.csv', function( data ) {
+
+            var lines = data.split('\n');
+
+            var DaysSeries = {
+                        name: 'Day total',
+                        data: []
+                    };
+
+            var WeeksSeries = {
+                        name: 'Week total',
+                        data: []
+                    };
+            var thisWeeksSeries = {
+                        name: 'This week total',
+                        color: '#ffa126',
+                        data: []
+                    };
+            var RidesInYear = {2014:0,2015:0,2016:0,2017:0};
+            var YearsSeries = {2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
+            var MonthsSeries = {2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
+            var DayRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
+            var MonthRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
+
+
+            parseBikeData(lines, RidesInYear, YearsSeries, MonthsSeries, DaysSeries, WeeksSeries, DayRecords, MonthRecords);
+
+            var todayPoint = YearsSeries[now.getFullYear()].data.length-1;
+
+
+            for (i = 2014; i<=now.getFullYear(); i++)
+            {
+                optionsPortageYears.series.push(YearsSeries[i]);
+                optionsPortageMonths.series.push(MonthsSeries[i]);
+                todayPortageTotals[i] = YearsSeries[i].data[todayPoint];
+            }
+
+            thisWeeksSeries.data.push(WeeksSeries.data[WeeksSeries.data.length-1]);
+            WeeksSeries.data.length = WeeksSeries.data.length-1;
+
+            optionsPortageDays.series.push(DaysSeries);
+            optionsPortageWeeks.series.push(WeeksSeries);
+            optionsPortageWeeks.series.push(thisWeeksSeries);
+
+            var lastDayTime = DaysSeries.data[DaysSeries.data.length-1][0];
+
+            AddRecordsLines(optionsPortageDays, lastDayTime, MonthRecords, DayRecords);
+
 	}); //end get portage csv
-	
-	
-	
-	$('#laurier').click(function () 
+
+
+
+	$('#laurier').click(function ()
 	{
 		chartDays.destroy();
 		chartMonths.destroy();
@@ -769,11 +767,11 @@ $(document).ready(function()
 		chartDays = new Highcharts.Chart(optionsLaurierDays);
 		chartMonths = new Highcharts.Chart(optionsLaurierMonths);
 		chartYears = new Highcharts.Chart(optionsLaurierYears);
-		chartWeeks = new Highcharts.Chart(optionsLaurierWeeks);		
+		chartWeeks = new Highcharts.Chart(optionsLaurierWeeks);
 		renderYearsTextBox(todayLaurierTotals);
 	});
-	
-	$('#portage').click(function () 
+
+	$('#portage').click(function ()
 	{
 		chartDays.destroy();
 		chartMonths.destroy();
@@ -783,10 +781,10 @@ $(document).ready(function()
 		chartMonths = new Highcharts.Chart(optionsPortageMonths);
 		chartYears = new Highcharts.Chart(optionsPortageYears);
 		chartWeeks = new Highcharts.Chart(optionsPortageWeeks);
-		
+
 		renderYearsTextBox(todayPortageTotals);
 	});
 
-		
-	
+
+
 });	//end main func
