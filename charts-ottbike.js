@@ -394,7 +394,7 @@ var optionsLaurierYears = {
 
 GetDayMonthFromDayNum = function (daynum)
 {
-	var date = new Date(2017, 0); // initialize a date in `year-01-01`
+	var date = new Date(2018, 0); // initialize a date in `year-01-01`
 	var date1 = new Date(date.setDate(daynum+1)); // add the number of days
 
 	return Highcharts.dateFormat('%b %e', date1.getTime())
@@ -408,7 +408,7 @@ GetDayMonthFromDayNum = function (daynum)
 
 GetMonthFromDayNum = function (daynum)
 {
-	var date = new Date(2017, 0); // initialize a date in `year-01-01`
+	var date = new Date(2018, 0); // initialize a date in `year-01-01`
 	var date1 = new Date(date.setDate(daynum+1)); // add the number of days
 
 	return Highcharts.dateFormat('%b', date1.getTime())
@@ -663,9 +663,9 @@ $(document).ready(function()
                     data: []
                 };
 
-        var RidesInYear = {2012:0,2013:0,2014:0,2015:0,2016:0,2017:0};
-        var YearsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
-        var MonthsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
+        var RidesInYear = {2012:0,2013:0,2014:0,2015:0,2016:0,2017:0,2018:0};
+        var YearsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]},2018:{data:[]}};
+        var MonthsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]},2018:{data:[]}};
         var DayRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
         var MonthRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
 
@@ -724,9 +724,9 @@ $(document).ready(function()
                         color: '#ffa126',
                         data: []
                     };
-            var RidesInYear = {2014:0,2015:0,2016:0,2017:0};
-            var YearsSeries = {2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
-            var MonthsSeries = {2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]}};
+            var RidesInYear = {2014:0,2015:0,2016:0,2017:0,2018:0};
+            var YearsSeries = {2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]},2018:{data:[]}};
+            var MonthsSeries = {2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]},2018:{data:[]}};
             var DayRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
             var MonthRecords = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
 
