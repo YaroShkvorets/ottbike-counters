@@ -506,7 +506,7 @@ AddRecordsLines = function (optionsDaysChart, lastDayTime, MonthRecords, DayReco
 												}
 											});
 
-
+	optionsDaysChart.yAxis.minRange = monthRecordValue;
 };
 
 TooltipFormatter = function (tooltip) {
