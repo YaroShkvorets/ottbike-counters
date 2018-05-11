@@ -205,7 +205,11 @@ const WeeksSeries = {
             name: 'Week total',
             data: []
         };
-
+var thisWeekSeries = {
+            name: 'This week total',
+            color: '#ffa126',
+            data: []
+        };
 let MonthDayRecords = []
 let DayOfWeekRecords = []
 let MonthWeekRecords = []
@@ -420,6 +424,7 @@ function showCounter(filename){
   Years = []
   DaysSeries.data=[]
   WeeksSeries.data=[]
+	thisWeekSeries.data=[]
   MonthDayRecords = []
   DayOfWeekRecords = []
   MonthWeekRecords = []
@@ -440,8 +445,10 @@ function showCounter(filename){
       todayTotals[year.year] = year.daily[todayPoint];
   }
   optionsDays.series.push(DaysSeries);
+  thisWeekSeries.data.push(WeeksSeries.data[WeeksSeries.data.length-1]);
+  WeeksSeries.data.length = WeeksSeries.data.length-1;
   optionsWeeks.series.push(WeeksSeries);
-
+  optionsWeeks.series.push(thisWeekSeries);
 
   AddRecordsLines();
 
