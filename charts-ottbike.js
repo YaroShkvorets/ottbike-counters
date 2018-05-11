@@ -1,4 +1,3 @@
-let chartYears, chartMonths, chartDays, chartWeeks;
 
 const optionsYears = {
 	chart: {
@@ -194,6 +193,9 @@ const optionsWeeks = {
 	series: []
 };
 
+let chartYears, chartMonths, chartDays, chartWeeks;
+
+
 const DaysSeries = {
             name: 'Day total',
             data: []
@@ -211,11 +213,7 @@ const thisWeeksSeries = {
 
 const MonthDayRecords = []
 const DayOfWeekRecords = []
-const RidesInYear = {2012:0,2013:0,2014:0,2015:0,2016:0,2017:0,2018:0};
-const YearsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]},2018:{data:[]}};
-const MonthsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]},2018:{data:[]}};
-
-
+const MonthWeekRecords = []
 const Years = []
 var todayTotals = [];
 
@@ -334,7 +332,7 @@ function AddRecordsLines()
 	var dayOfWeek = new Date(lastDayTime).getDay();
 	const MonthRecord = MonthDayRecords[monthOfYear];
 	const DayOfWeekRecord = DayOfWeekRecords[dayOfWeek];
-	//var monthWeekRecordValue = MonthWeekRecords[monthOfYear][0];
+	const MonthWeekRecord = MonthWeekRecords[monthOfYear];
 	//this month record line
 	optionsDays.yAxis.plotLines.push(
 											{
@@ -344,7 +342,7 @@ function AddRecordsLines()
 												dashStyle: 'Dot',
 												label: {
 													useHTML: true,
-													text: Highcharts.dateFormat("%B",lastDayTime)+' all-time high: <b>'+ MonthRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",MonthRecord.time),
+													text: Highcharts.dateFormat("Busiest %B",lastDayTime)+' day ever: <b>'+ MonthRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",MonthRecord.time),
 													style: {
 														color: 'grey',
 														fontSize: '11px'
@@ -362,7 +360,7 @@ function AddRecordsLines()
 												dashStyle: 'Dot',
 												label: {
 													useHTML: true,
-													text: Highcharts.dateFormat("%A",lastDayTime)+' all-time high: <b>'+ DayOfWeekRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",DayOfWeekRecord.time),
+													text: Highcharts.dateFormat("Busiest %A",lastDayTime)+' ever: <b>'+ DayOfWeekRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",DayOfWeekRecord.time),
 													style: {
 														color: 'grey',
 														fontSize: '11px'
@@ -371,17 +369,17 @@ function AddRecordsLines()
 													y: (MonthRecord.rides>DayOfWeekRecord.rides && MonthRecord.rides-DayOfWeekRecord.rides<500)?12:-5
 												}
 											});
-/*
+
 											//this month week record line
-	optionsWeeksChart.yAxis.plotLines.push(
+	optionsWeeks.yAxis.plotLines.push(
 											{
-												value: monthWeekRecordValue,
+												value: MonthWeekRecord.rides,
 												color: 'grey',
 												width: 1,
 												dashStyle: 'Dot',
 												label: {
 													useHTML: true,
-													text: Highcharts.dateFormat("Busiest <b>%B",lastDayTime)+'</b> week ever: <b>'+ monthWeekRecordValue + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",MonthWeekRecords[monthOfYear][1]),
+													text: Highcharts.dateFormat("Busiest <b>%B",lastDayTime)+'</b> week ever: <b>'+ MonthWeekRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",MonthWeekRecord.time),
 													style: {
 														color: 'grey',
 														fontSize: '11px'
@@ -390,7 +388,7 @@ function AddRecordsLines()
 													y: 12
 												}
 											});
-          */
+
 };
 
 const now = new Date();
@@ -475,9 +473,13 @@ function parseBikeData(pathToFile, Years){
 
       if(dayOfWeek == 0)	//Monday..Sunday = week
       {
-        if(weekStart!=0)
+        if(weekStart!=0){
           WeeksSeries.data.push([weekStart,curWeekRides])
-
+          if(typeof(MonthWeekRecords[curMonth])== 'undefined' || MonthWeekRecords[curMonth].rides<WeeksSeries.data[WeeksSeries.data.length-1][1])
+          {
+            MonthWeekRecords[curMonth] = {rides:WeeksSeries.data[WeeksSeries.data.length-1][1], time: WeeksSeries.data[WeeksSeries.data.length-1][0]}
+          }
+        }
         curWeekRides=0;
         weekStart=time;
       }
