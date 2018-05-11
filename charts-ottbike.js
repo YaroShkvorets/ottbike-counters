@@ -402,6 +402,7 @@ $(document).ready(function(){
     chartMonths.destroy();
     chartYears.destroy();
     chartWeeks.destroy();
+		optionsYears.title.text = 'Laurier Bike Lane'
     showCounter('laurier.csv')
   });
 
@@ -411,6 +412,7 @@ $(document).ready(function(){
     chartMonths.destroy();
     chartYears.destroy();
     chartWeeks.destroy();
+		optionsYears.title.text = 'Portage Bike Lane'
     showCounter('portage.csv')
   });
 
