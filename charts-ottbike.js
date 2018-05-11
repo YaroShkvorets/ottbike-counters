@@ -421,7 +421,7 @@ $(document).ready(function(){
 
 
 function parseBikeData(pathToFile, Years){
-  let curMonth = -1;
+  let curMonth = 12;
 	let	curYear = -1;
 	let	curMonthRides = 0;
 	let	curWeekRides = 0;
@@ -459,7 +459,7 @@ function parseBikeData(pathToFile, Years){
 
       if(curMonth!=month)
       {
-        if(curMonth!=-1){
+        if(curMonth<month){
           objYear.monthly.push(curMonthRides);
           curMonthRides = 0;
         }
