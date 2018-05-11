@@ -476,7 +476,7 @@ function parseBikeData(pathToFile, Years){
       if(line=='') {
         objYear.monthly.push(curMonthRides);
         Years.push(objYear)
-
+				if(curWeekRides != 0)	WeeksSeries.data.push([weekStart,curWeekRides])
         return
       }
       const values = line.split(',');
