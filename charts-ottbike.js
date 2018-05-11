@@ -209,9 +209,12 @@ const thisWeeksSeries = {
             data: []
         };
 
+const MonthDayRecords = []
+const DayOfWeekRecords = []
 const RidesInYear = {2012:0,2013:0,2014:0,2015:0,2016:0,2017:0,2018:0};
 const YearsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]},2018:{data:[]}};
 const MonthsSeries = {2012:{data:[]},2013:{data:[]},2014:{data:[]},2015:{data:[]},2016:{data:[]},2017:{data:[]},2018:{data:[]}};
+
 
 const Years = []
 var todayTotals = [];
@@ -321,6 +324,75 @@ function renderYearsTextBox(todayTotals)
 
 };
 
+
+function AddRecordsLines()
+{
+
+  const lastDayTime = DaysSeries.data[DaysSeries.data.length-1][0];
+
+	var monthOfYear = new Date(lastDayTime+24*60*60*1000).getMonth()+1;	//check one day into future because timezones
+	var dayOfWeek = new Date(lastDayTime).getDay();
+	const MonthRecord = MonthDayRecords[monthOfYear];
+	const DayOfWeekRecord = DayOfWeekRecords[dayOfWeek];
+	//var monthWeekRecordValue = MonthWeekRecords[monthOfYear][0];
+	//this month record line
+	optionsDays.yAxis.plotLines.push(
+											{
+												value: MonthRecord.rides,
+												color: 'grey',
+												width: 1,
+												dashStyle: 'Dot',
+												label: {
+													useHTML: true,
+													text: Highcharts.dateFormat("%B",lastDayTime)+' all-time high: <b>'+ MonthRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",MonthRecord.time),
+													style: {
+														color: 'grey',
+														fontSize: '11px'
+													},
+													x:0,
+													y: MonthRecord.rides>DayOfWeekRecord.rides?-5:12
+												}
+											});
+	//this day of week record line
+	optionsDays.yAxis.plotLines.push(
+											{
+												value: DayOfWeekRecord.rides,
+												color: 'grey',
+												width: 1,
+												dashStyle: 'Dot',
+												label: {
+													useHTML: true,
+													text: Highcharts.dateFormat("%A",lastDayTime)+' all-time high: <b>'+ DayOfWeekRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",DayOfWeekRecord.time),
+													style: {
+														color: 'grey',
+														fontSize: '11px'
+													},
+													x:0,
+													y: (MonthRecord.rides>DayOfWeekRecord.rides && MonthRecord.rides-DayOfWeekRecord.rides<500)?12:-5
+												}
+											});
+/*
+											//this month week record line
+	optionsWeeksChart.yAxis.plotLines.push(
+											{
+												value: monthWeekRecordValue,
+												color: 'grey',
+												width: 1,
+												dashStyle: 'Dot',
+												label: {
+													useHTML: true,
+													text: Highcharts.dateFormat("Busiest <b>%B",lastDayTime)+'</b> week ever: <b>'+ monthWeekRecordValue + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",MonthWeekRecords[monthOfYear][1]),
+													style: {
+														color: 'grey',
+														fontSize: '11px'
+													},
+													x:0,
+													y: 12
+												}
+											});
+          */
+};
+
 const now = new Date();
 
 $(document).ready(function(){
@@ -334,9 +406,16 @@ $(document).ready(function(){
       optionsMonths.series.push({id:year.year, name:year.year, data: year.monthly});
       todayTotals[year.year] = year.daily[todayPoint];
   }
+  optionsDays.series.push(DaysSeries);
+  optionsWeeks.series.push(WeeksSeries);
+
+
+  AddRecordsLines();
 
   chartYears = new Highcharts.Chart(optionsYears);
   chartMonths = new Highcharts.Chart(optionsMonths);
+  chartDays = new Highcharts.Chart(optionsDays);
+  chartWeeks = new Highcharts.Chart(optionsWeeks);
   renderYearsTextBox(todayTotals);
 })
 
@@ -358,6 +437,7 @@ function parseBikeData(pathToFile, Years){
       if(line=='') {
         objYear.monthly.push(curMonthRides);
         Years.push(objYear)
+
         return
       }
       const values = line.split(',');
@@ -403,16 +483,21 @@ function parseBikeData(pathToFile, Years){
       }
       curWeekRides+=rides;
 
+      if(typeof MonthDayRecords[curMonth] == 'undefined' || MonthDayRecords[curMonth].rides<rides){
+				MonthDayRecords[curMonth] = {time:time, rides:rides};
+			}
+      if(typeof DayOfWeekRecords[dayOfWeek] == 'undefined' || DayOfWeekRecords[dayOfWeek].rides<rides){
+        DayOfWeekRecords[dayOfWeek] = {time:time, rides:rides};
+      }
+
       if(time > nowtime - 90*24*60*60*1000)	//last 90 days
       {
         var d = new Date(time);
         DaysSeries.data.push([time,rides]);
-      /*  if(d.getDay()==4)
-        {
-          optionsLaurierDays.xAxis.plotBands.push({color: '#FCFFC5', from: time+12*60*60*1000, to: time+2.5*24*60*60*1000});
-          optionsPortageDays.xAxis.plotBands.push({color: '#FCFFC5', from: time+12*60*60*1000, to: time+2.5*24*60*60*1000});
+        if(d.getDay()==4){
+          optionsDays.xAxis.plotBands.push({color: '#FCFFC5', from: time+12*60*60*1000, to: time+2.5*24*60*60*1000});
         }
-        */
+
       }
 
       if(month==2 && day==29)
