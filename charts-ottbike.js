@@ -205,17 +205,12 @@ const WeeksSeries = {
             name: 'Week total',
             data: []
         };
-const thisWeeksSeries = {
-            name: 'This week total',
-            color: '#ffa126',
-            data: []
-        };
 
-const MonthDayRecords = []
-const DayOfWeekRecords = []
-const MonthWeekRecords = []
-const Years = []
-var todayTotals = [];
+let MonthDayRecords = []
+let DayOfWeekRecords = []
+let MonthWeekRecords = []
+let Years = []
+let todayTotals = [];
 
 function getSortedPointsKeys(points) {
     var keys = []; for(var key in points) keys.push(key);
@@ -393,10 +388,50 @@ function AddRecordsLines()
 
 const now = new Date();
 
+
+
 $(document).ready(function(){
 
+  $('#laurier').click(function ()
+  {
+    chartDays.destroy();
+    chartMonths.destroy();
+    chartYears.destroy();
+    chartWeeks.destroy();
+    showCounter('laurier.csv')
+  });
+
+  $('#portage').click(function ()
+  {
+    chartDays.destroy();
+    chartMonths.destroy();
+    chartYears.destroy();
+    chartWeeks.destroy();
+    showCounter('portage.csv')
+  });
+
   jQuery.ajaxSetup({async:false});
-  parseBikeData('laurier.csv', Years)
+  showCounter('laurier.csv')
+
+})
+
+function showCounter(filename){
+
+  Years = []
+  DaysSeries.data=[]
+  WeeksSeries.data=[]
+  MonthDayRecords = []
+  DayOfWeekRecords = []
+  MonthWeekRecords = []
+  todayTotals = []
+  optionsYears.series = []
+  optionsMonths.series = []
+  optionsDays.series = []
+  optionsWeeks.series = []
+  optionsDays.yAxis.plotLines = []
+  optionsWeeks.yAxis.plotLines = []
+
+  parseBikeData(filename, Years)
   const todayPoint = Years[Years.length-1].daily.length-1;
 
   for(let year of Years){
@@ -415,8 +450,7 @@ $(document).ready(function(){
   chartDays = new Highcharts.Chart(optionsDays);
   chartWeeks = new Highcharts.Chart(optionsWeeks);
   renderYearsTextBox(todayTotals);
-})
-
+}
 
 function parseBikeData(pathToFile, Years){
   let curMonth = 12;
