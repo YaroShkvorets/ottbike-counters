@@ -161,7 +161,7 @@ const optionsWeeks = {
 		crosshair: true,
 		plotLines: [],
 		min: 0,
-		max: 20000
+		//max: 20000
 	},
 	tooltip: {
 		shared: true,
