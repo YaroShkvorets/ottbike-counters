@@ -8,6 +8,9 @@ const optionsYears = {
 	title: {
 		text: 'Bike Lane'
 	},
+	subtitle: {
+		text: 'hi'
+	},
 	legend: {
           enabled: false
       },
@@ -359,22 +362,79 @@ $(document).ready(function(){
 	jQuery.ajaxSetup({async:false});
 
 	$('#laurier').click(function (){
-    showCounter('Laurier Bike Lane', 'laurier.csv')
+    ShowCounter('Laurier Bike Lane', 'laurier.csv')
   });
 
   $('#portage').click(function (){
-		showCounter('Portage Bike Lane', 'portage.csv')
+		ShowCounter('Portage Bike Lane', 'portage.csv')
   });
 
-  showCounter('Laurier Bike Lane', 'laurier.csv')
+	$('#1').click(function ()
+	{
+		ShowCounter('ALEX', 'OttcityCounters.csv', false, 1);
+	});
+
+	$('#2').click(function ()
+	{
+		ShowCounter('ORPY', 'OttcityCounters.csv', false, 2);
+	});
+
+	$('#3').click(function ()
+	{
+		ShowCounter('COBY', 'OttcityCounters.csv', false, 3);
+	});
+
+	$('#4').click(function ()
+	{
+		ShowCounter('CRTZ', 'OttcityCounters.csv', false, 4);
+	});
+	$('#5').click(function ()
+	{
+		ShowCounter('LMET', 'OttcityCounters.csv', false, 5);
+	});
+	$('#6').click(function ()
+	{
+		ShowCounter('LLYN', 'OttcityCounters.csv', false, 6);
+	});
+	$('#7').click(function ()
+	{
+		ShowCounter('LBAY', 'OttcityCounters.csv', false, 7);
+	});
+	$('#8').click(function ()
+	{
+		ShowCounter('SOMO', 'OttcityCounters.csv', false, 8);
+	});
+	$('#9').click(function ()
+	{
+		ShowCounter('OYNG', 'OttcityCounters.csv', false, 9);
+	});
+	$('#10').click(function ()
+	{
+		ShowCounter('OGLD', 'OttcityCounters.csv', false, 10);
+	});
+	$('#11').click(function ()
+	{
+		ShowCounter('OBVW', 'OttcityCounters.csv', false, 11);
+	});
+	$('#12').click(function ()
+	{
+		ShowCounter('ADAB', 'OttcityCounters.csv', false, 12);
+	});
+	$('#13').click(function ()
+	{
+		ShowCounter('ADAP', 'OttcityCounters.csv', false, 13);
+	});
+
+  ShowCounter('Laurier Bike Lane', 'laurier.csv')
 
 })
 
-function destroyCharts(){
-	if (typeof chartDays != 'undefined') chartDays.destroy();
+function DestroyCharts(){
+	if (chartDays && typeof chartDays != 'undefined') chartDays.destroy();
 	if (typeof chartMonths != 'undefined') chartMonths.destroy();
 	if (typeof chartYears != 'undefined') chartYears.destroy();
 	if (typeof chartWeeks != 'undefined') chartWeeks.destroy();
+	chartDays = null
 
 	Years = []
 	DaysSeries.data=[]
@@ -390,12 +450,13 @@ function destroyCharts(){
 	optionsWeeks.series = []
 	optionsDays.yAxis.plotLines = []
 	optionsWeeks.yAxis.plotLines = []
+	optionsYears.subtitle.text = null
 }
 
-function showCounter(name, filename){
+function ShowCounter(name, filename, isLiveCounter=true, column=1){
 
-	destroyCharts()
-  parseBikeData(filename, Years)
+	DestroyCharts()
+  ParseBikeData(filename, column)
 
   const todayPoint = Years[Years.length-1].daily.length-1;
 
@@ -404,23 +465,30 @@ function showCounter(name, filename){
       optionsMonths.series.push({id:year.year, name:year.year, data: year.monthly});
       todayTotals[year.year] = year.daily[todayPoint];
   }
-  optionsDays.series.push(DaysSeries);
-  ThisWeekSeries.data.push(WeeksSeries.data[WeeksSeries.data.length-1]);
-  WeeksSeries.data.length = WeeksSeries.data.length-1;
-  optionsWeeks.series.push(WeeksSeries);
-  optionsWeeks.series.push(ThisWeekSeries);
 	optionsYears.title.text = name
+	chartYears = new Highcharts.Chart(optionsYears);
+	chartMonths = new Highcharts.Chart(optionsMonths);
 
-  AddRecordsLines();
+	if(isLiveCounter){
+		ThisWeekSeries.data.push(WeeksSeries.data[WeeksSeries.data.length-1]);
+	  WeeksSeries.data.length = WeeksSeries.data.length-1;
+		optionsWeeks.series.push(ThisWeekSeries);
+		AddRecordsLines();
+		optionsDays.series.push(DaysSeries);
+	  chartDays = new Highcharts.Chart(optionsDays);
+		renderYearsTextBox(todayTotals)
+		$("#container_days").show()
+	}
+	else{
+		$("#container_days").hide()
+	}
 
-  chartYears = new Highcharts.Chart(optionsYears);
-  chartMonths = new Highcharts.Chart(optionsMonths);
-  chartDays = new Highcharts.Chart(optionsDays);
+	optionsWeeks.series.push(WeeksSeries);
   chartWeeks = new Highcharts.Chart(optionsWeeks);
-  renderYearsTextBox(todayTotals);
+
 }
 
-function parseBikeData(pathToFile, Years){
+function ParseBikeData(pathToFile, column){
   let curMonth = 12,
 		curYear = -1,
 		curMonthRides = 0,
@@ -444,7 +512,11 @@ function parseBikeData(pathToFile, Years){
 				return
       }
 			const items = line.split(',')
-
+			if(items[0]=='Date') return		//skip ottcity headers
+			if(items[0]=='Title'){
+				optionsYears.subtitle.text = items[column]
+				return
+			}
 			const [year,month,day] = items[0].split('-').map(function(ele){return parseInt(ele)})
 
       if(year != curYear){		//new year!
@@ -466,7 +538,7 @@ function parseBikeData(pathToFile, Years){
       }
 
       const date = items[0],
-   			rides = parseInt(items[1]),
+   			rides = parseInt(items[column]),
 				time = Date.parse(date),
 				nowtime = now.getTime(),
 				dayOfWeek = new Date(time).getDay()
