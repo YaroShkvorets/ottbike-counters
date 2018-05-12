@@ -35,7 +35,7 @@ const optionsYears = {
                   color: Highcharts.getOptions().colors[0]
               }
           },
-		max:500000,
+		//max:500000,
 
 	},
 	tooltip: {
