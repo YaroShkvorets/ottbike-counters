@@ -221,8 +221,7 @@ function TooltipFormatter(tooltip) {
   const index = tooltip.points[0].point.index;
   let ret = '<small>' + GetDayMonthFromDayNum(tooltip.x) + '</small><br><table>';
 
-	for(let key in sortedPoints)
-	{
+	for(let key in sortedPoints){
     const series = tooltip.points[sortedPoints[key]].series;
 		const yearShow = tooltip.points[sortedPoints[key]].y;		//whichever year we are showing
 		const yearCur = tooltip.points[tooltip.points.length-1].y;		//2017
@@ -241,28 +240,24 @@ function TooltipFormatter(tooltip) {
 };
 
 
-function GetDayMonthFromDayNum(daynum)
-{
+function GetDayMonthFromDayNum(daynum){
 	const date = new Date(new Date(2018, 0).setDate(daynum+1)); // add the number of days
 	return Highcharts.dateFormat('%b %e', date.getTime())
 };
 
-function GetMonthFromDayNum(daynum)
-{
+function GetMonthFromDayNum(daynum){
 	const date = new Date(new Date(2018, 0).setDate(daynum+1)); // add the number of days
 	return Highcharts.dateFormat('%b', date.getTime())
 };
 
 
-function renderYearsTextBox(todayTotals)
-{
+function renderYearsTextBox(todayTotals){
 	const curYear = todayTotals.length-1
 	const sortedYears = getSortedKeys(todayTotals);
 
 	let labelText = 'To this day:<br>';
 
-	for(let key in sortedYears)
-	{
+	for(let key in sortedYears){
 		const year = sortedYears[key];
 		const series = chartYears.get(parseInt(year));
 		let diff = '<span style="font-size: 75%;">' + (todayTotals[curYear]>todayTotals[sortedYears[key]]?' (':' (+');
@@ -287,8 +282,7 @@ function renderYearsTextBox(todayTotals)
 };
 
 
-function AddRecordsLines()
-{
+function AddRecordsLines(){
 
   const lastDayTime = DaysSeries.data[DaysSeries.data.length-1][0];
 
@@ -306,7 +300,7 @@ function AddRecordsLines()
 												dashStyle: 'Dot',
 												label: {
 													useHTML: true,
-													text: Highcharts.dateFormat("Busiest %B",lastDayTime)+' day ever: <b>'+ MonthRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",MonthRecord.time),
+													text: Highcharts.dateFormat("Busiest <b>%B",lastDayTime)+'</b> day ever: <b>'+ MonthRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",MonthRecord.time),
 													style: {
 														color: 'grey',
 														fontSize: '11px'
@@ -324,7 +318,7 @@ function AddRecordsLines()
 												dashStyle: 'Dot',
 												label: {
 													useHTML: true,
-													text: Highcharts.dateFormat("Busiest %A",lastDayTime)+' ever: <b>'+ DayOfWeekRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",DayOfWeekRecord.time),
+													text: Highcharts.dateFormat("Busiest <b>%A",lastDayTime)+'</b> ever: <b>'+ DayOfWeekRecord.rides + '</b> on ' + Highcharts.dateFormat("%Y-%m-%d",DayOfWeekRecord.time),
 													style: {
 														color: 'grey',
 														fontSize: '11px'
@@ -349,8 +343,7 @@ function AddRecordsLines()
 														fontSize: '11px'
 													},
 													x:0,
-													y: 12
-												}
+													y: -5											}
 											});
 
 };
@@ -364,64 +357,47 @@ $(document).ready(function(){
 	$('#laurier').click(function (){
     ShowCounter('Laurier Bike Lane', 'laurier.csv')
   });
-
   $('#portage').click(function (){
 		ShowCounter('Portage Bike Lane', 'portage.csv')
   });
 
-	$('#1').click(function ()
-	{
+	$('#1').click(function (){
 		ShowCounter('ALEX', 'OttcityCounters.csv', false, 1);
 	});
-
-	$('#2').click(function ()
-	{
+	$('#2').click(function (){
 		ShowCounter('ORPY', 'OttcityCounters.csv', false, 2);
 	});
-
-	$('#3').click(function ()
-	{
+	$('#3').click(function (){
 		ShowCounter('COBY', 'OttcityCounters.csv', false, 3);
 	});
-
-	$('#4').click(function ()
-	{
+	$('#4').click(function (){
 		ShowCounter('CRTZ', 'OttcityCounters.csv', false, 4);
 	});
-	$('#5').click(function ()
-	{
+	$('#5').click(function (){
 		ShowCounter('LMET', 'OttcityCounters.csv', false, 5);
 	});
-	$('#6').click(function ()
-	{
+	$('#6').click(function (){
 		ShowCounter('LLYN', 'OttcityCounters.csv', false, 6);
 	});
-	$('#7').click(function ()
-	{
+	$('#7').click(function (){
 		ShowCounter('LBAY', 'OttcityCounters.csv', false, 7);
 	});
-	$('#8').click(function ()
-	{
+	$('#8').click(function (){
 		ShowCounter('SOMO', 'OttcityCounters.csv', false, 8);
 	});
-	$('#9').click(function ()
-	{
+	$('#9').click(function (){
 		ShowCounter('OYNG', 'OttcityCounters.csv', false, 9);
 	});
-	$('#10').click(function ()
-	{
+	$('#10').click(function (){
 		ShowCounter('OGLD', 'OttcityCounters.csv', false, 10);
 	});
-	$('#11').click(function ()
-	{
+	$('#11').click(function (){
 		ShowCounter('OBVW', 'OttcityCounters.csv', false, 11);
 	});
-	$('#12').click(function ()
-	{
+	$('#12').click(function (){
 		ShowCounter('ADAB', 'OttcityCounters.csv', false, 12);
 	});
-	$('#13').click(function ()
-	{
+	$('#13').click(function (){
 		ShowCounter('ADAP', 'OttcityCounters.csv', false, 13);
 	});
 
