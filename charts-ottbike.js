@@ -472,7 +472,10 @@ function ParseBikeData(pathToFile, column){
 		weekStart = 0
 
 
-  $.get( pathToFile, function( data ) {  //go through lines
+  $.get( pathToFile, function(data, textStatus, request){
+		const lastModified = request.getResponseHeader("Last-Modified");
+		document.getElementById("modified").innerHTML = "Last updated: "+lastModified;
+
     const lines = data.split('\n');
     let objYear = {}
 
@@ -560,5 +563,6 @@ function ParseBikeData(pathToFile, column){
 
     })
 
-  })
+
+	});
 }
