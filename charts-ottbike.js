@@ -212,6 +212,34 @@ function getSortedKeys(obj) {
     return keys.sort(function(a,b){return obj[b]-obj[a]});
 }
 
+function timeSince(date) {
+
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+    return interval + " years";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes";
+  }
+  return Math.floor(seconds) + " seconds";
+}
+
 
 function TooltipFormatter(tooltip) {
 
@@ -474,7 +502,7 @@ function ParseBikeData(pathToFile, column){
 
   $.get( pathToFile, function(data, textStatus, request){
 		const lastModified = request.getResponseHeader("Last-Modified");
-		document.getElementById("modified").innerHTML = "Last updated: "+lastModified;
+		document.getElementById("modified").innerHTML = "Last updated: "+timeSince(new Date(lastModified))+" ago";
 
     const lines = data.split('\n');
     let objYear = {}
